@@ -1,11 +1,10 @@
-import OpenAI from "openai";
 import createFreeimageUploader from "./upload.ts";
 import { takeScreenshot } from "./screenshot";
 import fs from "fs/promises";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const YOUR_SITE_URL = process.env.YOUR_SITE_URL || "http://localhost:3000";
+const YOUR_SITE_NAME = process.env.YOUR_SITE_NAME || "Landing Page Generator";
 
 interface GeneratorOptions {
   originalImageUrl: string;
@@ -88,15 +87,29 @@ const saveConversationLog = async (
   );
 };
 
-const sendMessageToOpenAI = async (messages: Message[]): Promise<Message> => {
-  console.log("Sending message to OpenAI...");
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages,
-    max_tokens: 12000,
+const sendMessageToOpenRouter = async (messages: Message[]): Promise<Message> => {
+  console.log("Sending message to OpenRouter...");
+  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+      "HTTP-Referer": YOUR_SITE_URL,
+      "X-Title": YOUR_SITE_NAME,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      "model": "google/gemini-pro-1.5-exp",
+      "messages": messages
+    })
   });
-  console.log("Received response from OpenAI");
-  return completion.choices[0].message;
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  console.log("Received response from OpenRouter");
+  return data.choices[0].message;
 };
 
 const generateScreenshot = async (
@@ -132,7 +145,7 @@ const performIteration = async (
     );
   }
 
-  const assistantMessage = await sendMessageToOpenAI(conversationLog);
+  const assistantMessage = await sendMessageToOpenRouter(conversationLog);
   conversationLog.push(assistantMessage);
 
   const currentHtml = extractHtmlFromResponse(assistantMessage.content);
