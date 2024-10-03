@@ -13,7 +13,7 @@ const openai = new OpenAI({
   defaultHeaders: {
     "HTTP-Referer": YOUR_SITE_URL,
     "X-Title": YOUR_SITE_NAME,
-  }
+  },
 });
 
 interface GeneratorOptions {
@@ -97,12 +97,14 @@ const saveConversationLog = async (
   );
 };
 
-const sendMessageToOpenRouter = async (messages: Message[]): Promise<Message> => {
+const sendMessageToOpenRouter = async (
+  messages: Message[]
+): Promise<Message> => {
   console.log("Sending message to OpenRouter...");
   try {
     const completion = await openai.chat.completions.create({
-      model: "google/gemini-pro-1.5-exp",
-      messages: messages
+      model: "anthropic/claude-3.5-sonnet:beta",
+      messages: messages,
     });
 
     console.log("Received response from OpenRouter");
