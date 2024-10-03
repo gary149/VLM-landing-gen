@@ -52,7 +52,7 @@ bun run start -i <image_url> [-n <number>] [-m <model_name>]
 
 - `<image_url>`: The URL of the original design image
 - `<number>`: (Optional) The number of iterations for improvement (default is 3)
-- `<model_name>`: (Optional) The AI model to use (default is "anthropic/claude-3.5-sonnet:beta")
+- `<model_name>`: (Optional) The AI model to use (default is "anthropic/claude-3.5-sonnet")
 
 Example:
 

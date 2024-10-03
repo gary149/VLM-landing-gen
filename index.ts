@@ -30,7 +30,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const originalImageUrl = args["image"] || args["i"];
   const iterations = parseInt(args["iterations"] || args["n"] || "3", 10);
-  const model = args["model"] || args["m"] || "anthropic/claude-3.5-sonnet:beta";
+  const model = args["model"] || args["m"] || "anthropic/claude-3.5-sonnet";
 
   if (!originalImageUrl) {
     console.error(
