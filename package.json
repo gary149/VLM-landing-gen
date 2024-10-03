@@ -1,0 +1,19 @@
+{
+  "name": "webdesigner",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun run index.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "@types/puppeteer": "^7.0.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "openai": "^4.67.1",
+    "puppeteer": "^23.5.0"
+  }
+}
