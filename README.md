@@ -1,6 +1,6 @@
 # Landing Page Generator
 
-This project is a landing page generator that uses AI (via OpenRouter) to iteratively improve a design implementation based on a provided image.
+This project is an AI-powered landing page generator that uses OpenRouter to iteratively refine HTML implementations based on a provided design image. It works by analyzing the original image, generating initial HTML with Tailwind CSS, taking screenshots of the implementation, and then comparing these screenshots to the original design. Through multiple iterations, it progressively improves the layout, styling, and content to closely match the original design, while also ensuring high-quality, grammatically correct text content.
 
 ## Prerequisites
 
