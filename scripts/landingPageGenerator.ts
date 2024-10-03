@@ -1,10 +1,20 @@
 import createFreeimageUploader from "./upload.ts";
 import { takeScreenshot } from "./screenshot";
 import fs from "fs/promises";
+import OpenAI from "openai";
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const YOUR_SITE_URL = process.env.YOUR_SITE_URL || "http://localhost:3000";
 const YOUR_SITE_NAME = process.env.YOUR_SITE_NAME || "Landing Page Generator";
+
+const openai = new OpenAI({
+  baseURL: "https://openrouter.ai/api/v1",
+  apiKey: OPENROUTER_API_KEY,
+  defaultHeaders: {
+    "HTTP-Referer": YOUR_SITE_URL,
+    "X-Title": YOUR_SITE_NAME,
+  }
+});
 
 interface GeneratorOptions {
   originalImageUrl: string;
@@ -89,27 +99,18 @@ const saveConversationLog = async (
 
 const sendMessageToOpenRouter = async (messages: Message[]): Promise<Message> => {
   console.log("Sending message to OpenRouter...");
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      "HTTP-Referer": YOUR_SITE_URL,
-      "X-Title": YOUR_SITE_NAME,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      "model": "google/gemini-pro-1.5-exp",
-      "messages": messages
-    })
-  });
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "google/gemini-pro-1.5-exp",
+      messages: messages
+    });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    console.log("Received response from OpenRouter");
+    return completion.choices[0].message;
+  } catch (error) {
+    console.error("Error sending message to OpenRouter:", error);
+    throw error;
   }
-
-  const data = await response.json();
-  console.log("Received response from OpenRouter");
-  return data.choices[0].message;
 };
 
 const generateScreenshot = async (
