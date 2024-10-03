@@ -19,6 +19,7 @@ const openai = new OpenAI({
 interface GeneratorOptions {
   originalImageUrl: string;
   iterations: number;
+  model: string;
 }
 
 interface Message {
@@ -98,12 +99,13 @@ const saveConversationLog = async (
 };
 
 const sendMessageToOpenRouter = async (
-  messages: Message[]
+  messages: Message[],
+  model: string
 ): Promise<Message> => {
-  console.log("Sending message to OpenRouter...");
+  console.log(`Sending message to OpenRouter using model: ${model}...`);
   try {
     const completion = await openai.chat.completions.create({
-      model: "anthropic/claude-3.5-sonnet:beta",
+      model: model,
       messages: messages,
     });
 
@@ -137,7 +139,8 @@ const performIteration = async (
   conversationLog: Message[],
   iteration: number,
   totalIterations: number,
-  originalImageUrl: string
+  originalImageUrl: string,
+  model: string
 ): Promise<string> => {
   console.log(`Iteration ${iteration + 1}/${totalIterations}`);
 
@@ -148,7 +151,7 @@ const performIteration = async (
     );
   }
 
-  const assistantMessage = await sendMessageToOpenRouter(conversationLog);
+  const assistantMessage = await sendMessageToOpenRouter(conversationLog, model);
   conversationLog.push(assistantMessage);
 
   const currentHtml = extractHtmlFromResponse(assistantMessage.content);
@@ -162,6 +165,7 @@ const performIteration = async (
 const generateLandingPage = async ({
   originalImageUrl,
   iterations,
+  model,
 }: GeneratorOptions): Promise<string> => {
   const uploader = createFreeimageUploader(process.env.FREEIMAGE_API_KEY || "");
   const conversationLog: Message[] = [
@@ -177,7 +181,8 @@ const generateLandingPage = async ({
         conversationLog,
         index,
         iterations,
-        originalImageUrl
+        originalImageUrl,
+        model
       );
     },
     Promise.resolve("")

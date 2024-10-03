@@ -12,6 +12,15 @@ function parseArgs(args: string[]): { [key: string]: string } {
       } else {
         result[key] = "true";
       }
+    } else if (args[i].startsWith("-")) {
+      const key = args[i].slice(1);
+      const value = args[i + 1];
+      if (value && !value.startsWith("-")) {
+        result[key] = value;
+        i++;
+      } else {
+        result[key] = "true";
+      }
     }
   }
   return result;
@@ -21,15 +30,16 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const originalImageUrl = args["image"] || args["i"];
   const iterations = parseInt(args["iterations"] || args["n"] || "3", 10);
+  const model = args["model"] || args["m"] || "anthropic/claude-3.5-sonnet:beta";
 
   if (!originalImageUrl) {
     console.error(
       "Error: Please provide an image URL using --image or -i flag."
     );
     console.error(
-      "Usage: bun run start --image <image_url> [--iterations <number>]"
+      "Usage: bun run start --image <image_url> [--iterations <number>] [--model <model_name>]"
     );
-    console.error("   or: bun run start -i <image_url> [-n <number>]");
+    console.error("   or: bun run start -i <image_url> [-n <number>] [-m <model_name>]");
     process.exit(1);
   }
 
@@ -38,19 +48,20 @@ async function main() {
       "Error: The number of iterations must be a positive integer."
     );
     console.error(
-      "Usage: bun run start --image <image_url> [--iterations <number>]"
+      "Usage: bun run start --image <image_url> [--iterations <number>] [--model <model_name>]"
     );
-    console.error("   or: bun run start -i <image_url> [-n <number>]");
+    console.error("   or: bun run start -i <image_url> [-n <number>] [-m <model_name>]");
     process.exit(1);
   }
 
   console.log(
-    `Starting landing page generation with ${iterations} iteration(s)...`
+    `Starting landing page generation with ${iterations} iteration(s) using model: ${model}...`
   );
   try {
     const finalHtml = await generateLandingPage({
       originalImageUrl,
       iterations,
+      model,
     });
     console.log("Generation complete. Final HTML:");
     console.log(finalHtml);
