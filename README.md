@@ -5,8 +5,8 @@ This project is a landing page generator that uses AI (via OpenRouter) to iterat
 ## Prerequisites
 
 - [Bun](https://bun.sh) v1.0.2 or later
-- OpenRouter API key
-- Freeimage API key
+- [OpenRouter](https://openrouter.ai/) API key
+- [Freeimage](https://freeimage.host/) API key
 
 ## Installation
 
