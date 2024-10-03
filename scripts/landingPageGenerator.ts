@@ -49,7 +49,7 @@ const createComparisonMessage = (
   content: [
     {
       type: "text",
-      text: "Here are two images: the first is the original design and the second is a screenshot of your current implementation. List the differences, then improve your implementation to make it closer to the original design. Don't change the images that are the same as the original design, and improve the areas that are not the same as the original design.",
+      text: "Here are two images: the first is the original design and the second is a screenshot of your current implementation. Please follow these steps:\n\n1. List all the differences you can see between the original design and your current implementation. Be specific and detailed.\n2. For each difference, explain how you will improve your implementation to make it closer to the original design.\n3. Implement these improvements in your next iteration of the HTML code.\n4. Do not change any elements that are already matching the original design.\n5. Focus on improving the areas that differ from the original design.\n\nAfter listing the differences and your plan for improvements, provide the updated HTML code.",
     },
     {
       type: "image_url",
