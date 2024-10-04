@@ -145,15 +145,16 @@ const performIteration = async (
 ): Promise<string> => {
   console.log(`Iteration ${iteration + 1}/${totalIterations}`);
 
+  let currentConversation: Message[] = [conversationLog[0], conversationLog[1]]; // Include system message and initial user message
+
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
-    conversationLog.push(
-      createComparisonMessage(originalImageUrl, screenshotUrl, iteration === totalIterations - 1)
-    );
+    const comparisonMessage = createComparisonMessage(originalImageUrl, screenshotUrl, iteration === totalIterations - 1);
+    currentConversation.push(comparisonMessage);
   }
 
   const assistantMessage = await sendMessageToOpenRouter(
-    conversationLog,
+    currentConversation,
     model
   );
   conversationLog.push(assistantMessage);
