@@ -60,7 +60,7 @@ const createComparisonMessage = (
   content: [
     {
       type: "text",
-      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Please follow these steps, paying extremely close attention to layout and element positioning:\n\n1. Meticulously analyze both images and list all the differences you can see between the original design and your current implementation. Be extremely specific and detailed, with a strong emphasis on the following aspects:\n   - Layout and positioning of elements (be precise to the pixel level)\n   - Alignment of elements (vertical and horizontal)\n   - Proportions and sizes of elements relative to each other\n   - Spacing between elements (margins and padding)\n   - Grid structure and column layouts\n   - Responsive design elements and how they adapt to different screen sizes\n   - Colors and color schemes\n   - Typography (font sizes, styles, weights, and families)\n   - Images and icons\n   - Any missing or extra components\n\n2. For each identified difference, especially those related to layout and positioning, explain in precise detail how you will improve your implementation to make it closer to the original design. Provide specific Tailwind CSS classes or HTML structure changes you plan to make, including exact pixel values or relative units where applicable.\n\n3. Implement these improvements in your next iteration of the HTML code. Ensure that you're using Tailwind CSS classes effectively to achieve the exact layout and positioning of the original design.\n\n4. Do not change any elements that are already matching the original design perfectly.\n\n5. Focus on improving the areas that differ from the original design, prioritizing layout and positioning differences first, followed by other visual aspects.\n\n6. If there are any elements in the original design that you're unsure how to implement, especially regarding layout or positioning, explain your approach and any alternatives you're considering.\n\n${isLastIteration ? "7. As this is the last iteration, please review and improve all the text content. Ensure that the wording is correct, professional, and well-written, while maintaining approximately the same text length for each element. Pay special attention to grammar, spelling, and clarity." : ""}\n\nAfter listing the differences, your detailed plan for improvements (with a focus on layout and positioning), and any implementation challenges, provide the updated HTML code with your changes clearly commented.${isLastIteration ? " Include your text improvements in this final version." : ""}`,
+      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website section that are good enough and focus on the one that can be improved.  Don't change the images that look enough like the original design - keep the exact same url for them. Try to improve the spacing, colors, typography, and overall look of your implementation`,
     },
     {
       type: "image_url",
@@ -149,7 +149,11 @@ const performIteration = async (
 
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
-    const comparisonMessage = createComparisonMessage(originalImageUrl, screenshotUrl, iteration === totalIterations - 1);
+    const comparisonMessage = createComparisonMessage(
+      originalImageUrl,
+      screenshotUrl,
+      iteration === totalIterations - 1
+    );
     currentConversation.push(comparisonMessage);
   }
 
