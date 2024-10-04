@@ -98,7 +98,19 @@ const saveConversationLog = async (
     `Conversation log saved for iteration ${iteration} at ${timestamp}`
   );
   console.log("Conversation log contents:");
-  console.log(JSON.stringify(conversationLog, null, 2));
+  conversationLog.forEach((message, index) => {
+    console.log(`Message ${index + 1}:`);
+    console.log(`Role: ${message.role}`);
+    if (typeof message.content === 'string') {
+      console.log(`Content: ${message.content}`);
+    } else if (Array.isArray(message.content)) {
+      message.content.forEach((content, contentIndex) => {
+        console.log(`Content ${contentIndex + 1}:`);
+        console.log(JSON.stringify(content, null, 2));
+      });
+    }
+    console.log('---');
+  });
 };
 
 const sendMessageToOpenRouter = async (
@@ -157,6 +169,7 @@ const performIteration = async (
       iteration === totalIterations - 1
     );
     currentConversation.push(comparisonMessage);
+    conversationLog.push(comparisonMessage);
   }
 
   const assistantMessage = await sendMessageToOpenRouter(
