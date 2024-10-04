@@ -32,7 +32,7 @@ interface Message {
 const systemMessage: Message = {
   role: "system",
   content:
-    "You are an experienced front-end developer. Your goal is to implement a landing page using tailwindcss as close as possible to the one provided by the designer. The designer is not a native English speaker make sure that all the text is well written. You should output HTML in a single block of code that contains the <body> code of the site (never use <head>, <link>, or <style> elements). Use a pleasing, Apple-inspired aesthetic. Use CSS best practices, such as grids, and always make sure that text contrasts well with its background. Always make sure the site has 4 sections and do some nice copywriting. Tailwind is already included. Make sure to implement something that is responsive for all screen sizes. You can use images but always from this website: https://enzostvs-cached-generation.hf.space/generate/{image prompt}?format={square or portrait-9_16 or landscape-16_9} - also add the prompt used in the <img> alt attribute. You should never use svg.",
+    "You are an experienced front-end developer. Your goal is to implement a landing page using tailwindcss as close as possible to the one provided by the designer. The designer is not a native English speaker make sure that all the text is well written. You should output HTML in a single block of code that contains the <body> code of the site (never use <head>, <link>, or <style> elements). Use a pleasing, Apple-inspired aesthetic. Use CSS best practices, such as grids, and always make sure that text contrasts well with its background. Always make sure the site has 4 sections and do some nice copywriting. Tailwind is already included. Make sure to implement something that is responsive for all screen sizes. You can use images but always from this website: https://enzostvs-cached-generation.hf.space/generate/{image prompt}?format={square or portrait-9_16 or landscape-16_9} - also add the prompt used in the <img> alt attribute. You should never use svg. Always wrap your HTML code in ```html code blocks.",
 };
 
 const createUserMessage = (originalImageUrl: string): Message => ({
@@ -84,7 +84,7 @@ const extractHtmlFromResponse = (
 ): string => {
   if (typeof content !== "string") return "";
   const htmlMatch = content.match(/```html\n([\s\S]*?)\n```/);
-  return htmlMatch ? htmlMatch[1].trim() : content;
+  return htmlMatch ? htmlMatch[1].trim() : "";
 };
 
 const saveConversationLog = async (
@@ -97,6 +97,8 @@ const saveConversationLog = async (
   console.log(
     `Conversation log saved for iteration ${iteration} at ${timestamp}`
   );
+  console.log("Conversation log contents:");
+  console.log(JSON.stringify(conversationLog, null, 2));
 };
 
 const sendMessageToOpenRouter = async (
