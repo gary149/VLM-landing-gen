@@ -60,7 +60,7 @@ const createComparisonMessage = (
   content: [
     {
       type: "text",
-      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website section that are good enough and focus on the one that can be improved. Don't change the images that look enough like the original design - keep the exact same url for them. Try to improve the spacing, colors, typography, and overall look of your implementation. Make sure to respect font size and alignment and border radius. Be really carful that everything is sized as in the original design. Remember that your objective is to be as close as possible to the original design so don't take any design decision. `,
+      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website sections that you think are close enough to the original design. Don't change the images that look enough like the original design - keep the exact same url for them. Focus on detail to keep the exact same  spacing, colors, typography, and overall look as the original design. Make sure to respect font size and alignment and border radius. Be really carful that everything is sized as in the original design. Remember that your objective is to be as close as possible to the original design so don't take any design decision. `,
     },
     {
       type: "image_url",
@@ -101,7 +101,7 @@ const saveConversationLog = async (
   conversationLog.forEach((message, index) => {
     console.log(`Message ${index + 1}:`);
     console.log(`Role: ${message.role}`);
-    if (typeof message.content === 'string') {
+    if (typeof message.content === "string") {
       console.log(`Content: ${message.content}`);
     } else if (Array.isArray(message.content)) {
       message.content.forEach((content, contentIndex) => {
@@ -109,7 +109,7 @@ const saveConversationLog = async (
         console.log(JSON.stringify(content, null, 2));
       });
     }
-    console.log('---');
+    console.log("---");
   });
 };
 
