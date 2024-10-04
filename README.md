@@ -67,16 +67,9 @@ bun run start --image https://iili.io/dbaGlXj.png --iterations 5 --model openai/
 - `scripts/screenshot.ts`: Handles taking screenshots of generated HTML
 - `scripts/upload.ts`: Manages image uploads to Freeimage
 
-## Available Models
+## Model
 
-The generator supports various AI models through OpenRouter. Some popular options include:
-
-- `anthropic/claude-3-opus-20240229`
-- `anthropic/claude-3-sonnet-20240229`
-- `anthropic/claude-2.1`
-- `openai/gpt-4-turbo-preview`
-- `openai/gpt-4`
-- `openai/gpt-3.5-turbo`
+By default, the generator uses the `anthropic/claude-3-sonnet-20240229` model. You can specify a different model using the `--model` or `-m` flag when running the generator.
 
 For a full list of available models and their capabilities, please refer to the [OpenRouter documentation](https://openrouter.ai/docs).
 
