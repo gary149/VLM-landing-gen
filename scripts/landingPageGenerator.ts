@@ -60,7 +60,7 @@ const createComparisonMessage = (
   content: [
     {
       type: "text",
-      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website section that are good enough and focus on the one that can be improved.  Don't change the images that look enough like the original design - keep the exact same url for them. Try to improve the spacing, colors, typography, and overall look of your implementation`,
+      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website section that are good enough and focus on the one that can be improved.  Don't change the images that look enough like the original design - keep the exact same url for them. Try to improve the spacing, colors, typography, and overall look of your implementation. Make sure to respect font size and alignment and border radius. Remember to not take any design decision that would be too different from the original design.`,
     },
     {
       type: "image_url",
