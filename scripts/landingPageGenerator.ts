@@ -44,17 +44,23 @@ const createUserMessage = (originalImageUrl: string): Message => ({
   ],
 });
 
-const createComparisonMessage = (screenshotUrl: string): Message => ({
+const createComparisonMessage = (originalImageUrl: string, screenshotUrl: string): Message => ({
   role: "user",
   content: [
     {
       type: "text",
-      text: `Here's your current implementation. Your goal is to make it EXACTLY match the original design. Before providing any HTML, please analyze and explicitly list:
+      text: `Compare these two images side by side. Left is the ORIGINAL design, right is your CURRENT implementation. Your goal is to make the implementation EXACTLY match the original design. Before providing any HTML, please analyze and explicitly list:
 1. What aspects visually differ from the original design (spacing, colors, typography, alignment, proportions, etc.)
 2. Which sections need the most work to match the original design precisely
 3. Which images should be kept and which need to be regenerated to better match the original
 
 After providing this detailed comparison analysis, proceed with the improved HTML implementation that makes the page visually identical to the original design.`,
+    },
+    {
+      type: "image_url",
+      image_url: {
+        url: originalImageUrl,
+      },
     },
     {
       type: "image_url",
@@ -126,7 +132,7 @@ const performIteration = async (
 
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
-    const comparisonMessage = createComparisonMessage(screenshotUrl);
+    const comparisonMessage = createComparisonMessage(originalImageUrl, screenshotUrl);
     currentConversation.push(comparisonMessage);
     conversationLog.push(comparisonMessage);
   }
