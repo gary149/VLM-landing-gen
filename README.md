@@ -50,28 +50,41 @@ or use the short form:
 bun run start -i <image_url> [-n <number>] [-m <model_name>]
 ```
 
-- `<image_url>`: The URL of the original design image
-- `<number>`: (Optional) The number of iterations for improvement (default is 3)
-- `<model_name>`: (Optional) The AI model to use (default is "anthropic/claude-3.5-sonnet")
+Arguments:
+- `<image_url>`: URL of the original design image to replicate
+- `<number>`: (Optional) Number of improvement iterations (default: 3)
+- `<model_name>`: (Optional) AI model to use (default: "anthropic/claude-3.5-sonnet")
 
 Example:
 
 ```bash
-bun run start --image https://iili.io/dbaGlXj.png --iterations 5 --model openai/gpt-4-turbo-preview
+bun run start --image https://example.com/design.png --iterations 5
 ```
 
 ## Project Structure
 
-- `index.ts`: Entry point of the application
-- `scripts/landingPageGenerator.ts`: Main logic for generating the landing page
-- `scripts/screenshot.ts`: Handles taking screenshots of generated HTML
-- `scripts/upload.ts`: Manages image uploads to Freeimage
+- `index.ts`: Entry point handling command-line arguments and program flow
+- `scripts/landingPageGenerator.ts`: Core logic for HTML generation and iterative refinement
+- `scripts/screenshot.ts`: Puppeteer-based screenshot capture of generated pages
+- `scripts/upload.ts`: Image upload handling via Freeimage API
 
-## Model
+## How It Works
 
-By default, the generator uses the `anthropic/claude-3-sonnet-20240229` model. You can specify a different model using the `--model` or `-m` flag when running the generator.
+1. The system takes an input design image
+2. Generates initial HTML/Tailwind CSS implementation
+3. Takes a screenshot of the generated page
+4. Compares current implementation with original design
+5. Makes iterative improvements based on the comparison
+6. Repeats steps 3-5 for the specified number of iterations
 
-For a full list of available models and their capabilities, please refer to the [OpenRouter documentation](https://openrouter.ai/docs).
+## Model & AI Integration
+
+The generator uses OpenRouter API to access AI models for:
+- Design analysis and HTML generation
+- Implementation comparison and refinement
+- Content writing and improvement
+
+Default model is `anthropic/claude-3.5-sonnet`, but other OpenRouter-supported models can be specified via the `--model` flag.
 
 ## Contributing
 
