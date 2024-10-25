@@ -52,7 +52,6 @@ const createUserMessage = (originalImageUrl: string): Message => ({
 });
 
 const createComparisonMessage = (
-  originalImageUrl: string,
   screenshotUrl: string,
   isLastIteration: boolean
 ): Message => ({
@@ -60,13 +59,7 @@ const createComparisonMessage = (
   content: [
     {
       type: "text",
-      text: `Here are two images: the first is the original design and the second is a screenshot of your current implementation. Start by telling what is different between the two images then improve your implementation to make it look more like the original design. Skip the website sections that you think are close enough to the original design. Don't change the images that look enough like the original design - keep the exact same url for them. Focus on detail to keep the exact same  spacing, colors, typography, and overall look as the original design. Make sure to respect font size and alignment and border radius. Be really carful that everything is sized as in the original design. Remember that your objective is to be as close as possible to the original design so don't take any design decision. `,
-    },
-    {
-      type: "image_url",
-      image_url: {
-        url: originalImageUrl,
-      },
+      text: `Here is a screenshot of your current implementation. Review it and improve any aspects that need refinement. Skip the website sections that you think are good enough. Don't change the images that look good - keep the exact same url for them. Focus on detail to maintain consistent spacing, colors, typography, and overall look. Make sure to respect font size, alignment and border radius. Be really careful that everything is properly sized.`,
     },
     {
       type: "image_url",
@@ -164,7 +157,6 @@ const performIteration = async (
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
     const comparisonMessage = createComparisonMessage(
-      originalImageUrl,
       screenshotUrl,
       iteration === totalIterations - 1
     );
