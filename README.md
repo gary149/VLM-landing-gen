@@ -1,12 +1,12 @@
 # Landing Page Generator
 
-This project is an AI-powered landing page generator that uses OpenRouter to iteratively refine HTML implementations based on a provided design image. It works by analyzing the original image, generating initial HTML with Tailwind CSS, taking screenshots of the implementation, and then comparing these screenshots to the original design. Through multiple iterations, it progressively improves the layout, styling, and content to closely match the original design, while also ensuring high-quality, grammatically correct text content.
+This project is an AI-powered landing page generator that uses OpenRouter to iteratively refine HTML implementations based on a provided design image. It works by analyzing the original design image, generating initial HTML with Tailwind CSS, taking screenshots of the implementation, and comparing these screenshots with the original design. Through multiple iterations, it progressively improves the layout, styling, and content to match the original design precisely, while ensuring high-quality, grammatically correct text content.
 
 ## Prerequisites
 
 - [Bun](https://bun.sh) v1.0.2 or later
-- [OpenRouter](https://openrouter.ai/) API key
-- [Freeimage](https://freeimage.host/) API key
+- [OpenRouter](https://openrouter.ai/) API key (for AI model access)
+- [Freeimage](https://freeimage.host/) API key (for image hosting)
 
 ## Installation
 
