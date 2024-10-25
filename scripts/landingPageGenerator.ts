@@ -52,8 +52,7 @@ const createUserMessage = (originalImageUrl: string): Message => ({
 });
 
 const createComparisonMessage = (
-  screenshotUrl: string,
-  isLastIteration: boolean
+  screenshotUrl: string
 ): Message => ({
   role: "user",
   content: [
@@ -157,8 +156,7 @@ const performIteration = async (
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
     const comparisonMessage = createComparisonMessage(
-      screenshotUrl,
-      iteration === totalIterations - 1
+      screenshotUrl
     );
     currentConversation.push(comparisonMessage);
     conversationLog.push(comparisonMessage);
