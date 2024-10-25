@@ -45,21 +45,17 @@ const createUserMessage = (originalImageUrl: string): Message => ({
   ],
 });
 
-const createComparisonMessage = (
-  originalImageUrl: string,
-  screenshotUrl: string
-): Message => ({
+const createComparisonMessage = (screenshotUrl: string): Message => ({
   role: "user",
   content: [
     {
       type: "text",
-      text: `I'll show you two images: the original design followed by your current implementation. First, analyze which sections match the original design well enough and which need improvements. For images specifically, explicitly state which ones should keep their current URLs (because they match well) and which need to be regenerated. Then, improve the implementation focusing on sections that need work. Pay special attention to spacing, colors, typography, alignment, border radius, and overall sizing to match the original design exactly.`,
-    },
-    {
-      type: "image_url",
-      image_url: {
-        url: originalImageUrl,
-      },
+      text: `Here's your current implementation. Before providing any HTML, please analyze and explicitly list:
+1. What aspects of the design need improvement (spacing, colors, typography, alignment, etc.)
+2. Which sections need the most attention
+3. Which images should be kept and which need to be regenerated
+
+After providing this analysis, proceed with the improved HTML implementation that addresses these points.`,
     },
     {
       type: "image_url",
@@ -156,10 +152,7 @@ const performIteration = async (
 
   if (iteration > 0) {
     const screenshotUrl = await uploadScreenshot(uploader, "./screenshot.png");
-    const comparisonMessage = createComparisonMessage(
-      originalImageUrl,
-      screenshotUrl
-    );
+    const comparisonMessage = createComparisonMessage(screenshotUrl);
     currentConversation.push(comparisonMessage);
     conversationLog.push(comparisonMessage);
   }
