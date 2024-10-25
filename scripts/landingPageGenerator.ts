@@ -50,12 +50,12 @@ const createComparisonMessage = (screenshotUrl: string): Message => ({
   content: [
     {
       type: "text",
-      text: `Here's your current implementation. Before providing any HTML, please analyze and explicitly list:
-1. What aspects of the design need improvement (spacing, colors, typography, alignment, etc.)
-2. Which sections need the most attention
-3. Which images should be kept and which need to be regenerated
+      text: `Here's your current implementation. Your goal is to make it EXACTLY match the original design. Before providing any HTML, please analyze and explicitly list:
+1. What aspects visually differ from the original design (spacing, colors, typography, alignment, proportions, etc.)
+2. Which sections need the most work to match the original design precisely
+3. Which images should be kept and which need to be regenerated to better match the original
 
-After providing this analysis, proceed with the improved HTML implementation that addresses these points.`,
+After providing this detailed comparison analysis, proceed with the improved HTML implementation that makes the page visually identical to the original design.`,
     },
     {
       type: "image_url",
