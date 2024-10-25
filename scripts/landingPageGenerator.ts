@@ -4,16 +4,10 @@ import fs from "fs/promises";
 import OpenAI from "openai";
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const YOUR_SITE_URL = process.env.YOUR_SITE_URL || "http://localhost:3000";
-const YOUR_SITE_NAME = process.env.YOUR_SITE_NAME || "Landing Page Generator";
 
 const openai = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
   apiKey: OPENROUTER_API_KEY,
-  defaultHeaders: {
-    "HTTP-Referer": YOUR_SITE_URL,
-    "X-Title": YOUR_SITE_NAME,
-  },
 });
 
 interface GeneratorOptions {

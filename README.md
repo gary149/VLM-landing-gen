@@ -32,8 +32,6 @@ This project is an AI-powered landing page generator that uses OpenRouter to ite
      ```
      OPENROUTER_API_KEY=your_openrouter_api_key_here
      FREEIMAGE_API_KEY=your_freeimage_api_key_here
-     YOUR_SITE_URL=http://localhost:3000
-     YOUR_SITE_NAME=Landing Page Generator
      ```
 
 ## Usage
