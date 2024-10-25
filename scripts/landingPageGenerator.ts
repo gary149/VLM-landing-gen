@@ -1,6 +1,5 @@
 import createFreeimageUploader from "./upload.ts";
 import { takeScreenshot } from "./screenshot";
-import fs from "fs/promises";
 import OpenAI from "openai";
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
@@ -76,31 +75,6 @@ const extractHtmlFromResponse = (
   return htmlMatch ? htmlMatch[1].trim() : "";
 };
 
-const saveConversationLog = async (
-  conversationLog: Message[],
-  iteration: number
-): Promise<void> => {
-  const timestamp = new Date().toISOString().replace(/:/g, "-");
-  const logFileName = `conversation_log_${iteration}_${timestamp}.json`;
-  await fs.writeFile(logFileName, JSON.stringify(conversationLog, null, 2));
-  console.log(
-    `Conversation log saved for iteration ${iteration} at ${timestamp}`
-  );
-  console.log("Conversation log contents:");
-  conversationLog.forEach((message, index) => {
-    console.log(`Message ${index + 1}:`);
-    console.log(`Role: ${message.role}`);
-    if (typeof message.content === "string") {
-      console.log(`Content: ${message.content}`);
-    } else if (Array.isArray(message.content)) {
-      message.content.forEach((content, contentIndex) => {
-        console.log(`Content ${contentIndex + 1}:`);
-        console.log(JSON.stringify(content, null, 2));
-      });
-    }
-    console.log("---");
-  });
-};
 
 const sendMessageToOpenRouter = async (
   messages: Message[],
@@ -166,8 +140,6 @@ const performIteration = async (
   const currentHtml = extractHtmlFromResponse(assistantMessage.content);
 
   await generateScreenshot(currentHtml, "./screenshot.png");
-  await saveConversationLog(conversationLog, iteration + 1);
-
   return currentHtml;
 };
 
