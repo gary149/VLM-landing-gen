@@ -93,6 +93,7 @@ const sendMessageToOpenRouter = async (
       messages: messages,
     });
 
+    console.log("OpenRouter raw response:", JSON.stringify(completion, null, 2));
     console.log("Received response from OpenRouter");
     return completion.choices[0].message;
   } catch (error) {
