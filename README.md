@@ -51,7 +51,7 @@ bun run start -i <image_url> [-n <number>] [-m <model_name>]
 Arguments:
 - `<image_url>`: URL of the original design image to replicate
 - `<number>`: (Optional) Number of improvement iterations (default: 3)
-- `<model_name>`: (Optional) AI model to use (default: "anthropic/claude-3.5-sonnet")
+- `<model_name>`: (Optional) AI model to use (default: "google/gemini-2.0-flash-thinking-exp:free")
 
 Example:
 
@@ -82,7 +82,7 @@ The generator uses OpenRouter API to access AI models for:
 - Implementation comparison and refinement
 - Content writing and improvement
 
-Default model is `anthropic/claude-3.5-sonnet`, but other OpenRouter-supported models can be specified via the `--model` flag.
+Default model is `google/gemini-2.0-flash-thinking-exp:free`, but other OpenRouter-supported models can be specified via the `--model` flag.
 
 ## Contributing
 
