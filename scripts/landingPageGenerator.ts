@@ -82,12 +82,21 @@ const extractHtmlFromResponse = (
 };
 
 
+// Helper function for delay
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 const sendMessageToOpenRouter = async (
   messages: Message[],
   model: string
 ): Promise<Message> => {
   console.log(`Sending message to OpenRouter using model: ${model}...`);
   try {
+    // Add delay for Gemini models
+    if (model.includes('gemini')) {
+      console.log('Waiting 5 seconds before Gemini API request...');
+      await delay(5000);
+    }
+
     const completion = await openai.chat.completions.create({
       model: model,
       messages: messages,
