@@ -30,7 +30,7 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const originalImageUrl = args["image"] || args["i"];
   const iterations = parseInt(args["iterations"] || args["n"] || "3", 10);
-  const model = args["model"] || args["m"] || "anthropic/claude-3.5-sonnet";
+  const model = args["model"] || args["m"] || "google/gemini-2.0-flash-thinking-exp:free";
 
   if (!originalImageUrl) {
     console.error(
