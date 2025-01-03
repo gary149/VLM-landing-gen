@@ -52,7 +52,12 @@ const createComparisonMessage = (originalImageUrl: string, screenshotUrl: string
       text: `Compare these two images side by side. Left is the ORIGINAL design, right is your CURRENT implementation. Your goal is to make the implementation EXACTLY match the original design. Before providing any HTML, please analyze and explicitly list:
 1. What aspects visually differ from the original design (spacing, colors, typography, alignment, proportions, etc.)
 2. Which sections need the most work to match the original design precisely
-3. Which images should be kept and which need to be regenerated to better match the original
+3. Detailed image analysis:
+   - List each image currently used in the implementation
+   - For each image, explicitly state whether to:
+     a) KEEP: The image matches the original design well
+     b) REGENERATE: The image needs to be replaced (explain why)
+   - For images that need regeneration, provide the exact prompt to use
 
 After providing this detailed comparison analysis, proceed with the improved HTML implementation that makes the page visually identical to the original design.`,
     },
