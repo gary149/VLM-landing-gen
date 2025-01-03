@@ -6,7 +6,7 @@ export async function takeScreenshot(htmlString: string, outputPath: string) {
     browser = await puppeteer.launch({
       headless: 'new',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      timeout: 60000 // Increase timeout to 60 seconds
+      timeout: 120000 // Increase timeout to 120 seconds
     });
     
     const page = await browser.newPage();
@@ -31,13 +31,13 @@ export async function takeScreenshot(htmlString: string, outputPath: string) {
     `;
 
     // Set a longer timeout for page operations
-    await page.setDefaultNavigationTimeout(60000);
-    await page.setDefaultTimeout(60000);
+    await page.setDefaultNavigationTimeout(120000);
+    await page.setDefaultTimeout(120000);
 
     // Wait for network to be idle before taking screenshot
     await page.setContent(htmlWithTailwind, { 
       waitUntil: ['networkidle0', 'domcontentloaded'],
-      timeout: 60000 
+      timeout: 120000 
     });
 
     // Set viewport size (adjust as needed)
@@ -47,7 +47,7 @@ export async function takeScreenshot(htmlString: string, outputPath: string) {
     await page.screenshot({ 
       path: outputPath, 
       fullPage: true,
-      timeout: 60000
+      timeout: 120000
     });
 
     console.log(`Screenshot saved to ${outputPath}`);
